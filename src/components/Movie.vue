@@ -1,11 +1,21 @@
 <template>
   <div class="movie-container">
-    <h3>Movie 组件</h3>
+    <!-- this.$route 是路由的 “参数对象” -->
+    <!-- this.$router 是路由的 “导航对象” -->
+    <h3>Movie 组件 ------{{ $route.params.mid }}-----{{ mid }}</h3>
+    <button @click="showThis">打印</button>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  props:['mid'],
+  methods: {
+    showThis() {
+      console.log(this)
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>
