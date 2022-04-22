@@ -9,6 +9,8 @@ import About from '@/components/About.vue'
 import Movie from '@/components/Movie.vue'
 import tab1 from '@/components/tabs/tab1.vue'
 import tab2 from '@/components/tabs/tab2.vue'
+import Login from '@/components/Login.vue'
+import Main from '@/components/Main.vue'
 
 // 2. 调用 Vue.use() 函数，把 VueRouter 安装为 Vue 的插件
 Vue.use(VueRouter)
@@ -31,8 +33,26 @@ const router = new VueRouter({
       ]
     },
     // 可以为路由规则开启 props 传参，从而方便的拿到动态参数的值
-    { path: '/movie/:mid', component: Movie, props: true }
+    { path: '/movie/:mid', component: Movie, props: true },
+    { path: '/login', component: Login },
+    { path: '/main', component: Main }
   ]
+})
+
+// 为 router 实例对象，声明全局前置导航守卫
+// 只要发生了路由的跳转，必然会触发 beforeEach 指定的 function 回调函数
+router.beforeEach(function (to, from, next) {
+  // 判断用户将要访问的hash地址是否等于 /main
+  if (to.path === '/main') {
+    const token = localStorage.getItem('token')
+    if (token) {
+      next()
+    } else {
+      next('/login')
+    }
+  } else {
+    next()
+  }
 })
 
 // 4. 向外共享路由的实例对象

@@ -4,6 +4,7 @@
     <hr />
     <button @click="gotoLoki">通过 push 跳转到“洛基”页面</button>
     <button @click="gotoLoki2">通过 replace 跳转到“洛基”页面</button>
+    <router-link to="/main">访问main主页</router-link>
   </div>
 </template>
 
